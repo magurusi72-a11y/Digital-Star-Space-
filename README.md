@@ -1,9 +1,9 @@
-export default function DIGITALSTARSPACE() {
+export default function HopeFamily() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
       {/* Header */}
       <header className="w-full flex justify-between items-center p-4 shadow-md bg-white sticky top-0 z-50">
-        <h1 className="text-2xl font-bold text-blue-600">DIGITALSTARSPACE</h1>
+        <h1 className="text-2xl font-bold text-blue-600">DIGITAL STAR SPACE</h1>
         <nav className="space-x-6 hidden md:flex">
           <a href="#home" className="hover:text-blue-600">Home</a>
           <a href="#about" className="hover:text-blue-600">About</a>
@@ -16,7 +16,7 @@ export default function DIGITALSTARSPACE() {
 
       {/* Hero Section */}
       <section id="home" className="flex-1 flex flex-col justify-center items-center text-center bg-gradient-to-r from-blue-500 to-blue-700 text-white p-12">
-        <h2 className="text-4xl md:text-6xl font-bold mb-4">Building a DIGITALSTARSPACE</h2>
+        <h2 className="text-4xl md:text-6xl font-bold mb-4">Building a Family of Hope</h2>
         <p className="mb-6 max-w-2xl">Together we grow, support, and inspire one another. Join us in shaping a brighter future.</p>
         <a href="#join" className="bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold hover:bg-yellow-500 transition">Join the Family</a>
       </section>
@@ -36,7 +36,7 @@ export default function DIGITALSTARSPACE() {
             <p className="text-gray-600">October 20, 2025</p>
           </div>
           <div className="bg-white rounded-2xl shadow-md p-6">
-            <h4 className="text-xl font-semibold">Hope Family Outreach</h4>
+            <h4 className="text-xl font-semibold">Digital Star Outreach</h4>
             <p className="text-gray-600">November 2, 2025</p>
           </div>
         </div>
@@ -58,7 +58,7 @@ export default function DIGITALSTARSPACE() {
       {/* Join Us */}
       <section id="join" className="p-12 bg-gray-100 text-center">
         <h3 className="text-3xl font-bold mb-4">Join Us</h3>
-        <p className="mb-6">Become a part of the DIGITAL STAR SPACE and grow with us.</p>
+        <p className="mb-6">Become a part of DIGITAL STAR SPACE and grow with us.</p>
         <form className="max-w-md mx-auto space-y-4">
           <input type="text" placeholder="Full Name" className="w-full p-3 rounded-lg border" />
           <input type="email" placeholder="Email Address" className="w-full p-3 rounded-lg border" />
