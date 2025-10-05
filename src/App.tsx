@@ -39,15 +39,6 @@ export default function App() {
     if (params.get("host") === "1") setIsHost(true);
   }, []);
 
-  const addProject = () => setProjects([...projects, "New Project"]);
-  const removeProject = (idx: number) => setProjects(projects.filter((_, i) => i !== idx));
-  const addMedia = () => setMedia([...media, "/assets/sample-new.jpg"]);
-  const removeMedia = (idx: number) => setMedia(media.filter((_, i) => i !== idx));
-  const addHost = () => setHosts([...hosts, { name: "New Host", bio: "", cv: "#" }]);
-  const removeHost = (idx: number) => setHosts(hosts.filter((_, i) => i !== idx));
-  const addAnnouncement = () => setAnnouncements([...announcements, { title: "New Announcement", date: "Date", description: "Details..." }]);
-  const removeAnnouncement = (idx: number) => setAnnouncements(announcements.filter((_, i) => i !== idx));
-
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
       {/* Header */}
@@ -89,13 +80,11 @@ export default function App() {
       {/* Projects Section */}
       <section id="projects" className="p-12 bg-gray-100 text-center">
         <h3 className="text-3xl font-bold mb-6 text-blue-700">Our Projects</h3>
-        {isHost && <button onClick={addProject} className="mb-4 bg-green-500 text-white px-4 py-2 rounded">Add Project</button>}
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {projects.map((p, i) => (
             <div key={i} className="bg-white rounded-2xl shadow-md p-6">
               <h4 className="text-xl font-semibold mb-2">{p}</h4>
               <p className="text-gray-600">Description for {p}</p>
-              {isHost && <button onClick={() => removeProject(i)} className="mt-2 text-red-600 underline">Remove</button>}
             </div>
           ))}
         </div>
@@ -104,12 +93,10 @@ export default function App() {
       {/* Media Section */}
       <section id="media" className="p-12 bg-white text-center">
         <h3 className="text-3xl font-bold mb-6 text-blue-700">Media</h3>
-        {isHost && <button onClick={addMedia} className="mb-4 bg-green-500 text-white px-4 py-2 rounded">Add Media</button>}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
           {media.map((m, i) => (
             <div key={i} className="h-40 rounded-xl overflow-hidden relative">
               <img src={m} alt={`Media ${i}`} className="w-full h-full object-cover" />
-              {isHost && <button onClick={() => removeMedia(i)} className="absolute top-1 right-1 text-red-600 font-bold">X</button>}
             </div>
           ))}
         </div>
@@ -118,14 +105,12 @@ export default function App() {
       {/* Hosts Section */}
       <section id="hosts" className="p-12 bg-gray-100 text-center">
         <h3 className="text-3xl font-bold mb-6 text-blue-700">Hosts</h3>
-        {isHost && <button onClick={addHost} className="mb-4 bg-green-500 text-white px-4 py-2 rounded">Add Host</button>}
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {hosts.map((host, idx) => (
-            <div key={idx} className="bg-white rounded-2xl shadow-md p-6 text-left relative">
+            <div key={idx} className="bg-white rounded-2xl shadow-md p-6 text-left">
               <h4 className="text-xl font-semibold">{host.name}</h4>
               <p className="text-gray-600 mb-2">{host.bio}</p>
               <a href={host.cv} className="text-blue-600 underline">View CV</a>
-              {isHost && <button onClick={() => removeHost(idx)} className="absolute top-2 right-2 text-red-600 font-bold">X</button>}
             </div>
           ))}
         </div>
@@ -134,14 +119,12 @@ export default function App() {
       {/* Announcements Section */}
       <section id="announcements" className="p-12 bg-white text-center">
         <h3 className="text-3xl font-bold mb-6 text-blue-700">Announcements</h3>
-        {isHost && <button onClick={addAnnouncement} className="mb-4 bg-green-500 text-white px-4 py-2 rounded">Add Announcement</button>}
         <div className="max-w-4xl mx-auto space-y-4">
           {announcements.map((a, i) => (
-            <div key={i} className="bg-gray-100 p-4 rounded shadow-md relative">
+            <div key={i} className="bg-gray-100 p-4 rounded shadow-md">
               <h4 className="text-lg font-semibold">{a.title}</h4>
               <p className="text-sm text-gray-500">{a.date}</p>
               <p className="text-gray-600">{a.description}</p>
-              {isHost && <button onClick={() => removeAnnouncement(i)} className="absolute top-2 right-2 text-red-600 font-bold">X</button>}
             </div>
           ))}
         </div>
@@ -149,3 +132,28 @@ export default function App() {
 
       {/* Contact Section */}
       <section id="contact" className="p-12 bg-gray-100 text-center">
+        <h3 className="text-3xl font-bold mb-4 text-blue-700">Contact Us</h3>
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
+          <input type="text" name="name" placeholder="Full Name" className="w-full p-3 rounded-lg border" required />
+          <input type="email" name="email" placeholder="Email Address" className="w-full p-3 rounded-lg border" required />
+          <textarea name="message" placeholder="Your Message" className="w-full p-3 rounded-lg border h-28" required></textarea>
+          <button type="submit" disabled={formState.submitting} className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+            Send Message
+          </button>
+        </form>
+      </section>
+
+      {/* Footer */}
+      <footer className="p-8 bg-blue-800 text-white text-center">
+        <p className="font-semibold text-lg">© 2025 Digital Star Space</p>
+        <p className="text-sm mb-4">Empowering young minds, shaping a digital future</p>
+        <div className="flex justify-center space-x-6">
+          <a href="https://www.youtube.com/@DigitalStarSpace" className="hover:text-yellow-400">YouTube</a>
+          <a href="https://tiktok.com/@digitalstarspace" className="hover:text-yellow-400">TikTok</a>
+          <a href="#" className="hover:text-yellow-400">Facebook</a>
+          <a href="#" className="hover:text-yellow-400">Instagram</a>
+        </div>
+      </footer>
+    </div>
+  );
+}
