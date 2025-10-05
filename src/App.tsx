@@ -1,32 +1,28 @@
+import { useState } from "react";
+import { useForm, ValidationError } from "@formspree/react";
+
 export default function App() {
-  // Sample data (replace with actual if needed)
-  const projects = [
-    {
-      title: "Coding for Kids",
-      description: "Introducing primary school learners to basic coding and problem-solving.",
-    },
-    {
-      title: "Digital Skills Bootcamp",
-      description: "Helping youth gain practical knowledge in computer literacy and creativity tools.",
-    },
-    {
-      title: "Women in Tech",
-      description: "Empowering young women to join and thrive in the digital space.",
-    },
-  ];
+  const [state, handleSubmit] = useForm("xyznpekn"); // Your Formspree form ID
 
-  const announcements = [
-    "New Digital Skills Bootcamp starting October 20, 2025",
-    "Coding for Kids registration open now",
-  ];
+  const [projects] = useState([
+    { title: "Coding for Kids", desc: "Introducing primary school learners to basic coding and problem-solving." },
+    { title: "Digital Skills Bootcamp", desc: "Helping youth gain practical knowledge in computer literacy and creativity tools." },
+    { title: "Women in Tech", desc: "Empowering young women to join and thrive in the digital space." }
+  ]);
 
-  const media = [
-    { type: "image", src: "/assets/sample1.jpg" },
-    { type: "video", src: "/assets/sample2.mp4" },
-  ];
+  const [media] = useState([
+    { type: "image", src: "/assets/sample1.jpg", alt: "Sample 1" },
+    { type: "video", src: "/assets/sample2.mp4", alt: "Sample 2" }
+  ]);
+
+  const [announcements] = useState([
+    "New Digital Skills Bootcamp starting soon!",
+    "Register for Coding for Kids by end of month."
+  ]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
+
       {/* Header */}
       <header className="w-full flex justify-between items-center p-4 shadow-md bg-white sticky top-0 z-50">
         <h1 className="text-2xl font-bold text-blue-600">Digital Star Space</h1>
@@ -60,60 +56,59 @@ export default function App() {
         </p>
       </section>
 
-      {/* Announcements Section */}
-      <section id="announcements" className="p-12 bg-gray-100 text-center">
-        <h3 className="text-3xl font-bold mb-6 text-blue-700">Announcements</h3>
-        <ul className="max-w-3xl mx-auto space-y-2">
-          {announcements.map((ann, idx) => (
-            <li key={idx} className="bg-white p-4 rounded-xl shadow-md">
-              {ann}
-            </li>
-          ))}
-        </ul>
-      </section>
-
       {/* Projects Section */}
-      <section id="projects" className="p-12 bg-white text-center">
+      <section id="projects" className="p-12 bg-gray-100 text-center">
         <h3 className="text-3xl font-bold mb-8 text-blue-700">Our Projects</h3>
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {projects.map((p, i) => (
-            <div key={i} className="bg-gray-50 rounded-2xl shadow-md p-6">
+            <div key={i} className="bg-white rounded-2xl shadow-md p-6">
               <h4 className="text-xl font-semibold mb-2">{p.title}</h4>
-              <p className="text-gray-600">{p.description}</p>
+              <p className="text-gray-600">{p.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Media Section */}
-      <section id="media" className="p-12 bg-gray-100 text-center">
-        <h3 className="text-3xl font-bold mb-6 text-blue-700">Media</h3>
+      <section className="p-12 bg-white text-center">
+        <h3 className="text-3xl font-bold mb-8 text-blue-700">Media</h3>
         <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {media.map((m, idx) => (
-            m.type === "image" ? (
-              <img key={idx} src={m.src} alt="media" className="rounded-xl shadow-md" />
-            ) : (
-              <video key={idx} src={m.src} controls className="rounded-xl shadow-md" />
-            )
+          {media.map((m, i) => m.type === "image" ? (
+            <img key={i} src={m.src} alt={m.alt} className="rounded-xl shadow-md" />
+          ) : (
+            <video key={i} controls className="rounded-xl shadow-md">
+              <source src={m.src} type="video/mp4" />
+            </video>
           ))}
         </div>
+      </section>
+
+      {/* Announcements Section */}
+      <section className="p-12 bg-gray-50 text-center">
+        <h3 className="text-3xl font-bold mb-4 text-blue-700">Announcements</h3>
+        <ul className="space-y-2">
+          {announcements.map((a, i) => <li key={i} className="text-gray-700 font-medium">{a}</li>)}
+        </ul>
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="p-12 bg-white text-center">
         <h3 className="text-3xl font-bold mb-4 text-blue-700">Get in Touch</h3>
-        <p className="mb-6">Send us a message or donate to support our work.</p>
-        <form action="https://formspree.io/f/xyznpekn" method="POST" className="max-w-md mx-auto space-y-4">
-          <input type="text" name="name" placeholder="Full Name" className="w-full p-3 rounded-lg border" required />
-          <input type="email" name="email" placeholder="Email Address" className="w-full p-3 rounded-lg border" required />
-          <textarea name="message" placeholder="Your Message" className="w-full p-3 rounded-lg border h-28" required></textarea>
-          <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-            Send Message
-          </button>
-        </form>
-        <p className="mt-4">
-          <a href="https://digital-star-space.vercel.app/donate" className="text-blue-600 hover:underline">Donate / Support Us</a>
+        <p className="mb-6">
+          We’d love to hear from you! Send us a message below.
         </p>
+        {state.succeeded ? (
+          <p className="text-green-600 font-semibold">Thanks! Your message has been received and will be processed.</p>
+        ) : (
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
+            <input type="text" name="name" placeholder="Full Name" className="w-full p-3 rounded-lg border" required />
+            <input type="email" name="email" placeholder="Email Address" className="w-full p-3 rounded-lg border" required />
+            <textarea name="message" placeholder="Your Message" className="w-full p-3 rounded-lg border h-28" required />
+            <button type="submit" disabled={state.submitting} className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+              Send Message
+            </button>
+          </form>
+        )}
       </section>
 
       {/* Footer */}
@@ -123,8 +118,8 @@ export default function App() {
         <div className="flex justify-center space-x-6">
           <a href="https://www.youtube.com/@DigitalStarSpace" className="hover:text-yellow-400">YouTube</a>
           <a href="https://tiktok.com/@digitalstarspace" className="hover:text-yellow-400">TikTok</a>
-          <a href="#" className="hover:text-yellow-400">Facebook</a>
-          <a href="#" className="hover:text-yellow-400">Instagram</a>
+          <a href="tel:+255712651956" className="hover:text-yellow-400">Call Us</a>
+          <a href="mailto:magurusi72@gmail.com" className="hover:text-yellow-400">Email</a>
         </div>
       </footer>
     </div>
