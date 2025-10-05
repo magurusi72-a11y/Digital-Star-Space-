@@ -1,9 +1,32 @@
-import React from "react";
-
 export default function App() {
+  // Sample data (replace with actual if needed)
+  const projects = [
+    {
+      title: "Coding for Kids",
+      description: "Introducing primary school learners to basic coding and problem-solving.",
+    },
+    {
+      title: "Digital Skills Bootcamp",
+      description: "Helping youth gain practical knowledge in computer literacy and creativity tools.",
+    },
+    {
+      title: "Women in Tech",
+      description: "Empowering young women to join and thrive in the digital space.",
+    },
+  ];
+
+  const announcements = [
+    "New Digital Skills Bootcamp starting October 20, 2025",
+    "Coding for Kids registration open now",
+  ];
+
+  const media = [
+    { type: "image", src: "/assets/sample1.jpg" },
+    { type: "video", src: "/assets/sample2.mp4" },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
-
       {/* Header */}
       <header className="w-full flex justify-between items-center p-4 shadow-md bg-white sticky top-0 z-50">
         <h1 className="text-2xl font-bold text-blue-600">Digital Star Space</h1>
@@ -30,41 +53,67 @@ export default function App() {
       <section id="about" className="p-12 bg-white text-center">
         <h3 className="text-3xl font-bold mb-4 text-blue-700">About Us</h3>
         <p className="max-w-3xl mx-auto leading-relaxed">
-          Digital Star Space is a youth-led initiative based in Mwanza, Tanzania. Our mission is to connect young people with the opportunities and tools they need to thrive in the digital era — through technology, innovation, and collaboration.
+          Digital Star Space is a youth-led initiative based in Mwanza, Tanzania.
+          Our mission is to connect young people with the opportunities and tools
+          they need to thrive in the digital era — through technology, innovation,
+          and collaboration.
         </p>
       </section>
 
+      {/* Announcements Section */}
+      <section id="announcements" className="p-12 bg-gray-100 text-center">
+        <h3 className="text-3xl font-bold mb-6 text-blue-700">Announcements</h3>
+        <ul className="max-w-3xl mx-auto space-y-2">
+          {announcements.map((ann, idx) => (
+            <li key={idx} className="bg-white p-4 rounded-xl shadow-md">
+              {ann}
+            </li>
+          ))}
+        </ul>
+      </section>
+
       {/* Projects Section */}
-      <section id="projects" className="p-12 bg-gray-100 text-center">
+      <section id="projects" className="p-12 bg-white text-center">
         <h3 className="text-3xl font-bold mb-8 text-blue-700">Our Projects</h3>
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-md p-6">
-            <h4 className="text-xl font-semibold mb-2">Coding for Kids</h4>
-            <p className="text-gray-600">Introducing primary school learners to basic coding and problem-solving.</p>
-          </div>
-          <div className="bg-white rounded-2xl shadow-md p-6">
-            <h4 className="text-xl font-semibold mb-2">Digital Skills Bootcamp</h4>
-            <p className="text-gray-600">Helping youth gain practical knowledge in computer literacy and creativity tools.</p>
-          </div>
-          <div className="bg-white rounded-2xl shadow-md p-6">
-            <h4 className="text-xl font-semibold mb-2">Women in Tech</h4>
-            <p className="text-gray-600">Empowering young women to join and thrive in the digital space.</p>
-          </div>
+          {projects.map((p, i) => (
+            <div key={i} className="bg-gray-50 rounded-2xl shadow-md p-6">
+              <h4 className="text-xl font-semibold mb-2">{p.title}</h4>
+              <p className="text-gray-600">{p.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Media Section */}
+      <section id="media" className="p-12 bg-gray-100 text-center">
+        <h3 className="text-3xl font-bold mb-6 text-blue-700">Media</h3>
+        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          {media.map((m, idx) => (
+            m.type === "image" ? (
+              <img key={idx} src={m.src} alt="media" className="rounded-xl shadow-md" />
+            ) : (
+              <video key={idx} src={m.src} controls className="rounded-xl shadow-md" />
+            )
+          ))}
         </div>
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="p-12 bg-white text-center">
         <h3 className="text-3xl font-bold mb-4 text-blue-700">Get in Touch</h3>
-        <p className="mb-6">We’d love to hear from you! Send us a message below.</p>
-        <form className="max-w-md mx-auto space-y-4">
-          <input type="text" placeholder="Full Name" className="w-full p-3 rounded-lg border" />
-          <input type="email" placeholder="Email Address" className="w-full p-3 rounded-lg border" />
-          <textarea placeholder="Your Message" className="w-full p-3 rounded-lg border h-28"></textarea>
+        <p className="mb-6">Send us a message or donate to support our work.</p>
+        <form action="https://formspree.io/f/xyznpekn" method="POST" className="max-w-md mx-auto space-y-4">
+          <input type="text" name="name" placeholder="Full Name" className="w-full p-3 rounded-lg border" required />
+          <input type="email" name="email" placeholder="Email Address" className="w-full p-3 rounded-lg border" required />
+          <textarea name="message" placeholder="Your Message" className="w-full p-3 rounded-lg border h-28" required></textarea>
           <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
             Send Message
           </button>
         </form>
+        <p className="mt-4">
+          <a href="https://digital-star-space.vercel.app/donate" className="text-blue-600 hover:underline">Donate / Support Us</a>
+        </p>
       </section>
 
       {/* Footer */}
@@ -78,7 +127,6 @@ export default function App() {
           <a href="#" className="hover:text-yellow-400">Instagram</a>
         </div>
       </footer>
-
     </div>
   );
 }
