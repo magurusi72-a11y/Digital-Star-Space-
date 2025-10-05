@@ -23,35 +23,31 @@ interface Host {
 }
 
 export default function App() {
-  // Data state
-  const [projects, setProjects] = useState<Project[]>([
+  const [projects] = useState<Project[]>([
     { title: "Coding for Kids", description: "Basic coding & problem-solving for primary learners." },
     { title: "Digital Skills Bootcamp", description: "Practical computer literacy and creativity tools." },
     { title: "Women in Tech", description: "Empowering young women in digital space." },
   ]);
 
-  const [announcements, setAnnouncements] = useState<Announcement[]>([
+  const [announcements] = useState<Announcement[]>([
     { id: 1, text: "📢 New coding bootcamp starting next month!" },
     { id: 2, text: "🌟 Women in Tech mentorship program open for registration." },
   ]);
 
-  const [media, setMedia] = useState<Media[]>([
+  const [media] = useState<Media[]>([
     { id: 1, type: "video", url: "https://youtu.be/KqygAfckRKQ?si=YAGZEQUNje2nu3XD" },
-    // Add images if needed
   ]);
 
-  const [hosts, setHosts] = useState<Host[]>([
+  const [hosts] = useState<Host[]>([
     { id: 1, name: "Marko Magurusi", role: "Founder & educator based in Mwanza." },
   ]);
 
-  // Form state
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    // Here, normally you would integrate with Formspree or API
     console.log("Message submitted:", formData);
   };
 
@@ -182,6 +178,12 @@ export default function App() {
         <p className="font-semibold text-lg">© 2025 Digital Star Space</p>
         <p className="text-sm mb-4">Empowering young minds, shaping a digital future</p>
         <div className="flex justify-center space-x-6">
-          <a href="https://www.youtube.com/@DigitalStarSpace" target="_blank" className="hover:text-yellow-400">YouTube</a>
-          <a href="https://tiktok.com/@digitalstarspace" target="_blank" className="hover:text-yellow-400">TikTok</a>
+          <a href="https://www.youtube.com/@DigitalStarSpace" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400">YouTube</a>
+          <a href="https://tiktok.com/@digitalstarspace" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400">TikTok</a>
           <a href="#" className="hover:text-yellow-400">Facebook</a>
+          <a href="#" className="hover:text-yellow-400">Instagram</a>
+        </div>
+      </footer>
+    </div>
+  );
+}
