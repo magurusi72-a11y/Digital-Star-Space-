@@ -1,28 +1,37 @@
+// src/App.tsx
 import { useState } from "react";
 import hostsData from "./data/hosts.json";
 
 function App() {
-  const [messageSent, setMessageSent] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const hosts = hostsData;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate sending message
-    setMessageSent(true);
+    // Hapa unaweza kuongeza Formspree API call au email sending
+    console.log({ fullName, email, message });
+    setSubmitted(true);
   };
 
   return (
     <div>
       <header>
+        <nav>
+          <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Projects</li>
+            <li>Contact</li>
+          </ul>
+        </nav>
         <h1>Digital Star Space</h1>
-        <nav>Home | About | Projects | Contact</nav>
-      </header>
-
-      <section id="hero">
-        <h2>Empowering Young Minds</h2>
+        <p>Empowering Young Minds</p>
         <p>Inspiring and equipping young people with digital skills, creativity, and confidence for the future.</p>
-      </section>
+      </header>
 
       <section id="about">
         <h2>About Us</h2>
@@ -32,9 +41,18 @@ function App() {
       <section id="projects">
         <h2>Our Projects</h2>
         <ul>
-          <li><strong>Coding for Kids:</strong> Basic coding & problem-solving for primary learners.</li>
-          <li><strong>Digital Skills Bootcamp:</strong> Practical computer literacy and creativity tools.</li>
-          <li><strong>Women in Tech:</strong> Empowering young women in digital space.</li>
+          <li>
+            <h3>Coding for Kids</h3>
+            <p>Basic coding & problem-solving for primary learners.</p>
+          </li>
+          <li>
+            <h3>Digital Skills Bootcamp</h3>
+            <p>Practical computer literacy and creativity tools.</p>
+          </li>
+          <li>
+            <h3>Women in Tech</h3>
+            <p>Empowering young women in digital space.</p>
+          </li>
         </ul>
       </section>
 
@@ -48,31 +66,42 @@ function App() {
 
       <section id="hosts">
         <h2>Our Hosts</h2>
-        {hosts.map((host) => (
-          <div key={host.name}>
-            <h3>{host.name}</h3>
-            <p>{host.bio}</p>
-          </div>
-        ))}
+        <ul>
+          {hosts.map((host, idx) => (
+            <li key={idx}>
+              <h3>{host.name}</h3>
+              <p>{host.bio}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section id="media">
         <h2>Media</h2>
-        <video controls>
-          <source src="/assets/intro.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <p>Intro Video</p>
       </section>
 
       <section id="contact">
         <h2>Get in Touch</h2>
-        <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Full Name" required />
-          <input type="email" placeholder="Email Address" required />
-          <textarea placeholder="Your Message" required></textarea>
-          <button type="submit">Send Message</button>
-        </form>
-        {messageSent && <p>✅ Thank you! Your message has been received. We’ll respond soon.</p>}
+        {submitted ? (
+          <p>✅ Thank you! Your message has been received. We’ll respond soon.</p>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <label>
+              Full Name
+              <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+            </label>
+            <label>
+              Email Address
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </label>
+            <label>
+              Your Message
+              <textarea value={message} onChange={(e) => setMessage(e.target.value)} />
+            </label>
+            <button type="submit">Send Message</button>
+          </form>
+        )}
         <p>📞 Phone: +255 752 651 956</p>
         <p>📧 Email: magurusi72@gmail.com</p>
         <p>💖 Donate / Support</p>
@@ -82,10 +111,10 @@ function App() {
         <p>© 2025 Digital Star Space</p>
         <p>Empowering young minds, shaping a digital future</p>
         <div>
-          <a href="https://www.youtube.com/@DigitalStarSpace">YouTube</a>
-          <a href="https://www.tiktok.com/@digitalstarspace">TikTok</a>
-          <a href="#">Facebook</a>
-          <a href="#">Instagram</a>
+          <span>YouTube</span>
+          <span>TikTok</span>
+          <span>Facebook</span>
+          <span>Instagram</span>
         </div>
       </footer>
     </div>
