@@ -1,46 +1,40 @@
-import { useEffect, useState } from "react";
-import { useForm } from "@formspree/react";
+import React, { useState } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 
-interface Host {
-  name: string;
-  bio: string;
-  cv: string;
-}
+// Sample data for projects, announcements, hosts
+const projectsData = [
+  { title: "Coding for Kids", description: "Introducing primary school learners to basic coding and problem-solving." },
+  { title: "Digital Skills Bootcamp", description: "Helping youth gain practical knowledge in computer literacy and creativity tools." },
+  { title: "Women in Tech", description: "Empowering young women to join and thrive in the digital space." }
+];
 
-interface Announcement {
-  title: string;
-  date: string;
-  description: string;
-}
+const announcementsData = [
+  { text: "New Coding Bootcamp starting October 15, 2025." },
+  { text: "Digital Art Contest submissions open till November 5, 2025." }
+];
+
+const hostsData = [
+  { name: "Marko Magurusi", role: "Founder & Lead Trainer", cvLink: "#" },
+  { name: "Jane Mwangi", role: "Community Manager", cvLink: "#" }
+];
+
+const mediaData = [
+  { type: "image", src: "/assets/sample1.jpg" },
+  { type: "image", src: "/assets/sample2.jpg" },
+  { type: "video", src: "/assets/sample-video.mp4" }
+];
 
 export default function App() {
-  const [isHost, setIsHost] = useState(false);
-  const [projects, setProjects] = useState<string[]>([
-    "Coding for Kids",
-    "Digital Skills Bootcamp",
-    "Women in Tech",
-  ]);
-  const [media, setMedia] = useState<string[]>([
-    "/assets/sample1.jpg",
-    "/assets/sample2.jpg",
-    "/assets/sample3.jpg",
-  ]);
-  const [hosts, setHosts] = useState<Host[]>([
-    { name: "Marko Magurusi", bio: "Founder", cv: "#" },
-  ]);
-  const [announcements, setAnnouncements] = useState<Announcement[]>([
-    { title: "New Bootcamp Starting", date: "Oct 10, 2025", description: "Join our digital skills bootcamp for beginners!" },
-  ]);
+  const [projects] = useState(projectsData);
+  const [announcements] = useState(announcementsData);
+  const [hosts] = useState(hostsData);
+  const [media] = useState(mediaData);
 
-  const [formState, handleSubmit] = useForm("xyznpekn"); // replace with your Formspree ID
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("host") === "1") setIsHost(true);
-  }, []);
+  const [formState, handleSubmit] = useForm("xyznpekn");
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
+
       {/* Header */}
       <header className="w-full flex justify-between items-center p-4 shadow-md bg-white sticky top-0 z-50">
         <h1 className="text-2xl font-bold text-blue-600">Digital Star Space</h1>
@@ -48,9 +42,9 @@ export default function App() {
           <a href="#home" className="hover:text-blue-600">Home</a>
           <a href="#about" className="hover:text-blue-600">About</a>
           <a href="#projects" className="hover:text-blue-600">Projects</a>
-          <a href="#media" className="hover:text-blue-600">Media</a>
+          <a href="#announcements" className="hover:text-blue-600">Announcements</a>
           <a href="#hosts" className="hover:text-blue-600">Hosts</a>
-          <a href="#announcements" className="hover:text-blue-600">News</a>
+          <a href="#media" className="hover:text-blue-600">Media</a>
           <a href="#contact" className="hover:text-blue-600">Contact</a>
         </nav>
       </header>
@@ -79,38 +73,12 @@ export default function App() {
 
       {/* Projects Section */}
       <section id="projects" className="p-12 bg-gray-100 text-center">
-        <h3 className="text-3xl font-bold mb-6 text-blue-700">Our Projects</h3>
+        <h3 className="text-3xl font-bold mb-8 text-blue-700">Our Projects</h3>
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {projects.map((p, i) => (
             <div key={i} className="bg-white rounded-2xl shadow-md p-6">
-              <h4 className="text-xl font-semibold mb-2">{p}</h4>
-              <p className="text-gray-600">Description for {p}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Media Section */}
-      <section id="media" className="p-12 bg-white text-center">
-        <h3 className="text-3xl font-bold mb-6 text-blue-700">Media</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
-          {media.map((m, i) => (
-            <div key={i} className="h-40 rounded-xl overflow-hidden relative">
-              <img src={m} alt={`Media ${i}`} className="w-full h-full object-cover" />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Hosts Section */}
-      <section id="hosts" className="p-12 bg-gray-100 text-center">
-        <h3 className="text-3xl font-bold mb-6 text-blue-700">Hosts</h3>
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {hosts.map((host, idx) => (
-            <div key={idx} className="bg-white rounded-2xl shadow-md p-6 text-left">
-              <h4 className="text-xl font-semibold">{host.name}</h4>
-              <p className="text-gray-600 mb-2">{host.bio}</p>
-              <a href={host.cv} className="text-blue-600 underline">View CV</a>
+              <h4 className="text-xl font-semibold mb-2">{p.title}</h4>
+              <p className="text-gray-600">{p.description}</p>
             </div>
           ))}
         </div>
@@ -118,29 +86,62 @@ export default function App() {
 
       {/* Announcements Section */}
       <section id="announcements" className="p-12 bg-white text-center">
-        <h3 className="text-3xl font-bold mb-6 text-blue-700">Announcements</h3>
-        <div className="max-w-4xl mx-auto space-y-4">
+        <h3 className="text-3xl font-bold mb-4 text-blue-700">Announcements</h3>
+        <ul className="list-disc list-inside max-w-3xl mx-auto text-left">
           {announcements.map((a, i) => (
-            <div key={i} className="bg-gray-100 p-4 rounded shadow-md">
-              <h4 className="text-lg font-semibold">{a.title}</h4>
-              <p className="text-sm text-gray-500">{a.date}</p>
-              <p className="text-gray-600">{a.description}</p>
+            <li key={i} className="mb-2">{a.text}</li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Hosts Section */}
+      <section id="hosts" className="p-12 bg-gray-100 text-center">
+        <h3 className="text-3xl font-bold mb-8 text-blue-700">Hosts</h3>
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {hosts.map((host, idx) => (
+            <div key={idx} className="bg-white rounded-2xl shadow-md p-6">
+              <h4 className="text-xl font-semibold mb-2">{host.name}</h4>
+              <p className="text-gray-600 mb-2">{host.role}</p>
+              <a href={host.cvLink} className="text-blue-600 hover:underline">View CV</a>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Media Section */}
+      <section id="media" className="p-12 bg-white text-center">
+        <h3 className="text-3xl font-bold mb-8 text-blue-700">Media Gallery</h3>
+        <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+          {media.map((m, i) =>
+            m.type === "image" ? (
+              <img key={i} src={m.src} alt={`media-${i}`} className="rounded-xl w-full h-48 object-cover" />
+            ) : (
+              <video key={i} controls className="rounded-xl w-full h-48 object-cover">
+                <source src={m.src} type="video/mp4" />
+              </video>
+            )
+          )}
         </div>
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="p-12 bg-gray-100 text-center">
         <h3 className="text-3xl font-bold mb-4 text-blue-700">Contact Us</h3>
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
-          <input type="text" name="name" placeholder="Full Name" className="w-full p-3 rounded-lg border" required />
-          <input type="email" name="email" placeholder="Email Address" className="w-full p-3 rounded-lg border" required />
-          <textarea name="message" placeholder="Your Message" className="w-full p-3 rounded-lg border h-28" required></textarea>
-          <button type="submit" disabled={formState.submitting} className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-            Send Message
-          </button>
-        </form>
+        <p className="mb-6">We’d love to hear from you! Send us a message below.</p>
+        {formState.succeeded ? (
+          <p className="text-green-600 font-semibold">Thank you! Your message has been received and will be processed.</p>
+        ) : (
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
+            <input type="text" name="name" placeholder="Full Name" className="w-full p-3 rounded-lg border" required />
+            <input type="email" name="email" placeholder="Email Address" className="w-full p-3 rounded-lg border" required />
+            <textarea name="message" placeholder="Your Message" className="w-full p-3 rounded-lg border h-28" required></textarea>
+            <button type="submit" disabled={formState.submitting} className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+              Submit
+            </button>
+          </form>
+        )}
+        <p className="mt-4">Phone: +255 752 651 956 | Email: info@digitalstarspace.org</p>
+        <a href="#" className="text-yellow-500 hover:underline">Donate / Support</a>
       </section>
 
       {/* Footer */}
@@ -154,6 +155,7 @@ export default function App() {
           <a href="#" className="hover:text-yellow-400">Instagram</a>
         </div>
       </footer>
+
     </div>
   );
 }
