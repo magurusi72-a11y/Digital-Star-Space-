@@ -1,29 +1,9 @@
-import { useState } from "react";
-
-// Auto-reply function simulation
-function sendAutoReply(email: string) {
-  console.log(`Auto-reply sent to ${email}: Your message has been received and will be handled.`);
-}
+import React from "react";
 
 export default function App() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Simulate sending the message
-    console.log("Message received:", formData);
-    sendAutoReply(formData.email);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
+
       {/* Header */}
       <header className="w-full flex justify-between items-center p-4 shadow-md bg-white sticky top-0 z-50">
         <h1 className="text-2xl font-bold text-blue-600">Digital Star Space</h1>
@@ -38,18 +18,19 @@ export default function App() {
       {/* Hero Section */}
       <section id="home" className="flex-1 flex flex-col justify-center items-center text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white p-12">
         <h2 className="text-4xl md:text-6xl font-bold mb-4">Empowering Young Minds</h2>
-        <p className="mb-6 max-w-2xl text-lg">At Digital Star Space, we inspire and equip young people with digital skills, creativity, and confidence for the future.</p>
-        <a href="#projects" className="bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold hover:bg-yellow-500 transition">Explore Projects</a>
+        <p className="mb-6 max-w-2xl text-lg">
+          At Digital Star Space, we inspire and equip young people with digital skills, creativity, and confidence for the future.
+        </p>
+        <a href="#projects" className="bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold hover:bg-yellow-500 transition">
+          Explore Projects
+        </a>
       </section>
 
       {/* About Section */}
       <section id="about" className="p-12 bg-white text-center">
         <h3 className="text-3xl font-bold mb-4 text-blue-700">About Us</h3>
         <p className="max-w-3xl mx-auto leading-relaxed">
-          Digital Star Space is a youth-led initiative based in Mwanza, Tanzania. 
-          Our mission is to connect young people with the opportunities and tools 
-          they need to thrive in the digital era — through technology, innovation, 
-          and collaboration.
+          Digital Star Space is a youth-led initiative based in Mwanza, Tanzania. Our mission is to connect young people with the opportunities and tools they need to thrive in the digital era — through technology, innovation, and collaboration.
         </p>
       </section>
 
@@ -76,41 +57,14 @@ export default function App() {
       <section id="contact" className="p-12 bg-white text-center">
         <h3 className="text-3xl font-bold mb-4 text-blue-700">Get in Touch</h3>
         <p className="mb-6">We’d love to hear from you! Send us a message below.</p>
-        {submitted ? (
-          <p className="text-green-600 font-semibold mb-4">Thank you! Your message has been received.</p>
-        ) : (
-          <form className="max-w-md mx-auto space-y-4" onSubmit={handleSubmit}>
-            <input 
-              type="text" 
-              name="name" 
-              placeholder="Full Name" 
-              className="w-full p-3 rounded-lg border" 
-              value={formData.name} 
-              onChange={handleChange} 
-              required
-            />
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="Email Address" 
-              className="w-full p-3 rounded-lg border" 
-              value={formData.email} 
-              onChange={handleChange} 
-              required
-            />
-            <textarea 
-              name="message" 
-              placeholder="Your Message" 
-              className="w-full p-3 rounded-lg border h-28" 
-              value={formData.message} 
-              onChange={handleChange} 
-              required
-            ></textarea>
-            <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-              Send Message
-            </button>
-          </form>
-        )}
+        <form className="max-w-md mx-auto space-y-4">
+          <input type="text" placeholder="Full Name" className="w-full p-3 rounded-lg border" />
+          <input type="email" placeholder="Email Address" className="w-full p-3 rounded-lg border" />
+          <textarea placeholder="Your Message" className="w-full p-3 rounded-lg border h-28"></textarea>
+          <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+            Send Message
+          </button>
+        </form>
       </section>
 
       {/* Footer */}
@@ -124,6 +78,7 @@ export default function App() {
           <a href="#" className="hover:text-yellow-400">Instagram</a>
         </div>
       </footer>
+
     </div>
   );
 }
