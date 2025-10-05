@@ -1,5 +1,4 @@
-import React from 'react';
-
+// src/App.tsx
 export default function App() {
   const projects = [
     { title: 'Coding for Kids', description: 'Basic coding & problem-solving for primary learners.' },
