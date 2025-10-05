@@ -1,33 +1,105 @@
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { useForm, ValidationError } from '@formspree/react';
+
+// Simple host password
+const HOST_PASSWORD = "1234";
 
 export default function App() {
-  const [contactData, setContactData] = useState({ name: "", email: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
+  // --- State ---
+  const [isHost, setIsHost] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setContactData({ ...contactData, [e.target.name]: e.target.value });
+  // Announcements
+  const [announcements, setAnnouncements] = useState(() => {
+    return JSON.parse(localStorage.getItem("announcements") || '["Welcome to Digital Star Space!"]');
+  });
+
+  // Projects / Lessons
+  const [projects, setProjects] = useState(() => {
+    return JSON.parse(localStorage.getItem("projects") || '[]');
+  });
+
+  // Media
+  const [media, setMedia] = useState(() => {
+    return JSON.parse(localStorage.getItem("media") || '[]');
+  });
+
+  // Host profiles
+  const [hosts, setHosts] = useState(() => {
+    return JSON.parse(localStorage.getItem("hosts") || '[]');
+  });
+
+  // Formspree
+  const [state, handleSubmit] = useForm("xyznpekn");
+
+  // --- Effects ---
+  useEffect(() => {
+    localStorage.setItem("announcements", JSON.stringify(announcements));
+  }, [announcements]);
+
+  useEffect(() => {
+    localStorage.setItem("projects", JSON.stringify(projects));
+  }, [projects]);
+
+  useEffect(() => {
+    localStorage.setItem("media", JSON.stringify(media));
+  }, [media]);
+
+  useEffect(() => {
+    localStorage.setItem("hosts", JSON.stringify(hosts));
+  }, [hosts]);
+
+  // --- Handlers ---
+  const handleLogin = () => {
+    if (passwordInput === HOST_PASSWORD) setIsHost(true);
+    else alert("Incorrect password!");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    console.log("Message submitted:", contactData);
-    setContactData({ name: "", email: "", message: "" });
+  const addAnnouncement = () => {
+    const text = prompt("Enter new announcement:");
+    if (text) setAnnouncements([text, ...announcements]);
   };
+
+  const addProject = () => {
+    const text = prompt("Enter project/lesson title:");
+    if (text) setProjects([text, ...projects]);
+  };
+
+  const addMedia = () => {
+    const url = prompt("Enter media URL (image/video):");
+    if (url) setMedia([url, ...media]);
+  };
+
+  const addHost = () => {
+    const name = prompt("Host Name:");
+    const bio = prompt("Bio:");
+    const cv = prompt("CV Link:");
+    if (name && bio && cv) setHosts([...hosts, { name, bio, cv }]);
+  };
+
+  // --- UI ---
+  if (!isHost) {
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-6">
+        <h1 className="text-3xl font-bold mb-4 text-blue-600">Host Login</h1>
+        <input type="password" value={passwordInput} onChange={e => setPasswordInput(e.target.value)} placeholder="Enter password" className="p-3 border rounded mb-4"/>
+        <button onClick={handleLogin} className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Login</button>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
 
-      {/* Header */}
-      <header className="w-full flex justify-between items-center p-4 shadow-md bg-white sticky top-0 z-50">
-        <h1 className="text-2xl font-bold text-blue-600">Digital Star Space</h1>
-        <nav className="space-x-6 hidden md:flex">
-          <a href="#home" className="hover:text-blue-600">Home</a>
-          <a href="#about" className="hover:text-blue-600">About</a>
-          <a href="#projects" className="hover:text-blue-600">Projects</a>
-          <a href="#lessons" className="hover:text-blue-600">Lessons</a>
-          <a href="#contact" className="hover:text-blue-600">Contact</a>
-        </nav>
+      {/* Dashboard */}
+      <header className="w-full flex flex-col md:flex-row justify-between items-center p-4 shadow-md bg-white sticky top-0 z-50">
+        <h1 className="text-2xl font-bold text-blue-600">Digital Star Space - Host Dashboard</h1>
+        <div className="flex space-x-4 mt-2 md:mt-0">
+          <button onClick={addAnnouncement} className="px-4 py-2 bg-yellow-400 rounded hover:bg-yellow-500">Add Announcement</button>
+          <button onClick={addProject} className="px-4 py-2 bg-green-400 rounded hover:bg-green-500">Add Project</button>
+          <button onClick={addMedia} className="px-4 py-2 bg-purple-400 rounded hover:bg-purple-500">Add Media</button>
+          <button onClick={addHost} className="px-4 py-2 bg-blue-400 rounded hover:bg-blue-500">Add Host</button>
+        </div>
       </header>
 
       {/* Hero Section */}
@@ -36,109 +108,71 @@ export default function App() {
         <p className="mb-6 max-w-2xl text-lg">
           At Digital Star Space, we inspire and equip young people with digital skills, creativity, and confidence for the future.
         </p>
-        <a href="#projects" className="bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold hover:bg-yellow-500 transition">Explore Projects</a>
+
+        {/* Latest Announcement Preview */}
+        {announcements.length > 0 && (
+          <div className="bg-yellow-400 text-black px-4 py-2 rounded mb-4 max-w-2xl">
+            <strong>Latest Announcement:</strong> {announcements[0]}
+          </div>
+        )}
+
+        <div className="flex space-x-4">
+          <a href="#projects" className="bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold hover:bg-yellow-500 transition">Explore Projects</a>
+          <a href="https://www.paypal.com/donate/example" target="_blank" rel="noopener noreferrer" className="bg-green-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-600 transition">Donate / Support</a>
+        </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="p-12 bg-white text-center">
-        <h3 className="text-3xl font-bold mb-4 text-blue-700">About Us</h3>
-        <p className="max-w-3xl mx-auto leading-relaxed">
-          Digital Star Space is a youth-led initiative based in Mwanza, Tanzania. Our mission is to connect young people with the opportunities and tools they need to thrive in the digital era — through technology, innovation, and collaboration.
-        </p>
-      </section>
-
-      {/* Projects Section */}
+      {/* Projects */}
       <section id="projects" className="p-12 bg-gray-100 text-center">
         <h3 className="text-3xl font-bold mb-8 text-blue-700">Our Projects</h3>
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-
-          <div className="bg-white rounded-2xl shadow-md p-6">
-            <img src="/images/coding-for-kids.jpg" alt="Coding for Kids" className="rounded-lg mb-4" />
-            <h4 className="text-xl font-semibold mb-2">Coding for Kids</h4>
-            <p className="text-gray-600">Introducing primary school learners to basic coding and problem-solving.</p>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-md p-6">
-            <img src="/images/bootcamp.jpg" alt="Digital Skills Bootcamp" className="rounded-lg mb-4" />
-            <h4 className="text-xl font-semibold mb-2">Digital Skills Bootcamp</h4>
-            <p className="text-gray-600">Helping youth gain practical knowledge in computer literacy and creativity tools.</p>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-md p-6">
-            <img src="/images/women-in-tech.jpg" alt="Women in Tech" className="rounded-lg mb-4" />
-            <h4 className="text-xl font-semibold mb-2">Women in Tech</h4>
-            <p className="text-gray-600">Empowering young women to join and thrive in the digital space.</p>
-          </div>
-        </div>
-
-        {/* Video */}
-        <div className="mt-12 max-w-4xl mx-auto">
-          <h4 className="text-2xl font-bold mb-4 text-blue-700">Watch Our Story</h4>
-          <div className="relative pt-[56.25%]">
-            <iframe
-              className="absolute top-0 left-0 w-full h-full rounded-lg"
-              src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-              title="Digital Star Space Video"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
+          {projects.length > 0 ? projects.map((p, i) => (
+            <div key={i} className="bg-white rounded-2xl shadow-md p-6">
+              <h4 className="text-xl font-semibold mb-2">{p}</h4>
+            </div>
+          )) : <p>No projects added yet.</p>}
         </div>
       </section>
 
-      {/* Lessons Section */}
-      <section id="lessons" className="p-12 bg-white text-center">
-        <h3 className="text-3xl font-bold mb-8 text-blue-700">Digital Star Space Lessons</h3>
-        <div className="max-w-4xl mx-auto space-y-6 text-left">
+      {/* Media Gallery */}
+      <section id="media" className="p-12 bg-white text-center">
+        <h3 className="text-3xl font-bold mb-8 text-blue-700">Media Gallery</h3>
+        <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+          {media.length > 0 ? media.map((m, i) => (
+            <div key={i} className="h-40 rounded-xl overflow-hidden bg-gray-200">
+              <img src={m} alt={`media-${i}`} className="w-full h-full object-cover"/>
+            </div>
+          )) : <p>No media added yet.</p>}
+        </div>
+      </section>
 
-          <div className="bg-gray-50 rounded-2xl shadow-md p-6">
-            <h4 className="text-xl font-semibold mb-2">Lesson 1: Introduction to Coding</h4>
-            <p className="text-gray-700 leading-relaxed">
-              This lesson introduces basic programming concepts for beginners. Students will learn variables, loops, and simple functions using JavaScript.
-            </p>
-          </div>
-
-          <div className="bg-gray-50 rounded-2xl shadow-md p-6">
-            <h4 className="text-xl font-semibold mb-2">Lesson 2: Digital Skills for Youth</h4>
-            <p className="text-gray-700 leading-relaxed">
-              Learn essential digital skills like creating presentations, spreadsheets, and understanding online communication tools to prepare for modern workplaces.
-            </p>
-          </div>
-
-          <div className="bg-gray-50 rounded-2xl shadow-md p-6">
-            <h4 className="text-xl font-semibold mb-2">Lesson 3: Creativity & Innovation</h4>
-            <p className="text-gray-700 leading-relaxed">
-              Encourage students to think creatively and build small digital projects that solve real-life problems. Practical exercises included.
-            </p>
-          </div>
+      {/* Host Profiles */}
+      <section id="hosts" className="p-12 bg-gray-100 text-center">
+        <h3 className="text-3xl font-bold mb-8 text-blue-700">Meet Our Hosts</h3>
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {hosts.length > 0 ? hosts.map((host, idx) => (
+            <div key={idx} className="bg-white rounded-2xl p-6 shadow-md">
+              <h4 className="text-xl font-semibold mb-2">{host.name}</h4>
+              <p className="text-gray-600 mb-2">{host.bio}</p>
+              <a href={host.cv} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">View CV</a>
+            </div>
+          )) : <p>No hosts added yet.</p>}
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="p-12 bg-gray-100 text-center">
+      <section id="contact" className="p-12 bg-white text-center">
         <h3 className="text-3xl font-bold mb-4 text-blue-700">Get in Touch</h3>
-        <p className="mb-6">Send us a message below, and we’ll get back to you shortly!</p>
-
-        {/* Contact Info */}
-        <div className="mb-8 space-y-2">
-          <p>📧 Email: <a href="mailto:info@digitalstarspace.org" className="text-blue-600 hover:underline">info@digitalstarspace.org</a></p>
-          <p>📞 Phone: <a href="tel:+255752651956" className="text-blue-600 hover:underline">+255 752 651 956</a></p>
-          <p>💖 Support us: <a href="https://your-donation-link.com" target="_blank" className="text-blue-600 hover:underline ml-1">Donate / Changia</a></p>
-        </div>
-
-        {!submitted ? (
-          <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4 text-left">
-            <input type="text" name="name" placeholder="Full Name" value={contactData.name} onChange={handleChange} className="w-full p-3 rounded-lg border" required />
-            <input type="email" name="email" placeholder="Email Address" value={contactData.email} onChange={handleChange} className="w-full p-3 rounded-lg border" required />
-            <textarea name="message" placeholder="Your Message" value={contactData.message} onChange={handleChange} className="w-full p-3 rounded-lg border h-28" required />
-            <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">Send Message</button>
-          </form>
+        <p className="mb-6">We’d love to hear from you! Send us a message below.</p>
+        {state.succeeded ? (
+          <p className="text-green-600 font-semibold mb-4">Thanks! Your message has been received and will be processed.</p>
         ) : (
-          <div className="bg-green-100 text-green-800 rounded-lg p-6 max-w-md mx-auto">
-            <p className="font-semibold mb-2">Thank you!</p>
-            <p>Your message has been received and will be processed shortly.</p>
-          </div>
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
+            <input type="text" placeholder="Full Name" name="name" className="w-full p-3 rounded-lg border" required />
+            <input type="email" placeholder="Email Address" name="email" className="w-full p-3 rounded-lg border" required />
+            <textarea placeholder="Your Message" name="message" className="w-full p-3 rounded-lg border h-28" required></textarea>
+            <button type="submit" disabled={state.submitting} className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">Send Message</button>
+          </form>
         )}
       </section>
 
@@ -153,6 +187,7 @@ export default function App() {
           <a href="#" className="hover:text-yellow-400">Instagram</a>
         </div>
       </footer>
+
     </div>
   );
 }
