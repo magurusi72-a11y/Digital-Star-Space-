@@ -1,9 +1,3 @@
-src/
- ├─ App.tsx
- ├─ data/
- │   └─ hosts.json
- └─ types/
-     └─ json.d.ts
 import React from "react";
 import hostsData from "./data/hosts.json";
 
