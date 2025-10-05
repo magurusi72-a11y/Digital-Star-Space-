@@ -5,11 +5,6 @@ interface Project {
   description: string;
 }
 
-interface MediaItem {
-  title: string;
-  url: string;
-}
-
 interface Host {
   name: string;
   role: string;
@@ -20,39 +15,65 @@ interface Announcement {
   message: string;
 }
 
-export default function App() {
-  const [formSubmitted, setFormSubmitted] = useState(false);
+interface Media {
+  title: string;
+  link: string;
+}
 
-  const projects: Project[] = [
+export default function App() {
+  const [projects] = useState<Project[]>([
     { title: "Coding for Kids", description: "Basic coding & problem-solving for primary learners." },
     { title: "Digital Skills Bootcamp", description: "Practical computer literacy and creativity tools." },
     { title: "Women in Tech", description: "Empowering young women in digital space." },
-  ];
+  ]);
 
-  const media: MediaItem[] = [
-    { title: "Intro Video", url: "https://www.youtube.com/embed/KqygAfckRKQ" },
-  ];
-
-  const hosts: Host[] = [
+  const [hosts] = useState<Host[]>([
     { name: "Marko Magurusi", role: "Founder & educator", location: "Mwanza" },
-  ];
+  ]);
 
-  const announcements: Announcement[] = [
+  const [announcements] = useState<Announcement[]>([
     { message: "📢 New coding bootcamp starting next month!" },
     { message: "🌟 Women in Tech mentorship program open for registration." },
-  ];
+  ]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-  };
+  const [media] = useState<Media[]>([
+    { title: "Intro Video", link: "https://youtu.be/KqygAfckRKQ?si=YAGZEQUNje2nu3XD" },
+  ]);
 
   return (
-    <div className="scroll-smooth font-sans">
+    <div>
+      {/* SEO Meta Tags */}
+      <head>
+        <title>Digital Star Space | Empowering Young Minds in Mwanza</title>
+        <meta name="description" content="Digital Star Space is a youth-led initiative in Mwanza, Tanzania. We empower young people with coding, digital skills, and creativity for a better future." />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Digital Star Space",
+            "url": "https://digital-star-space.vercel.app/",
+            "logo": "https://digital-star-space.vercel.app/logo.png",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+255752651956",
+              "contactType": "customer service",
+              "email": "magurusi72@gmail.com"
+            },
+            "sameAs": [
+              "https://www.youtube.com/@DigitalStarSpace",
+              "https://www.tiktok.com/@digitalstarspace",
+              "https://www.facebook.com/DigitalStarSpace",
+              "https://www.instagram.com/DigitalStarSpace"
+            ]
+          })}
+        </script>
+      </head>
+
       {/* Header */}
-      <header className="p-6 bg-blue-600 text-white flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Digital Star Space</h1>
-        <nav className="space-x-4">
+      <header>
+        <h1>Digital Star Space</h1>
+        <nav>
           <a href="#home">Home</a>
           <a href="#about">About</a>
           <a href="#projects">Projects</a>
@@ -61,110 +82,90 @@ export default function App() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="text-center p-10 bg-gray-100">
-        <h2 className="text-3xl font-bold mb-4">Empowering Young Minds</h2>
+      <section id="home">
+        <h2>Empowering Young Minds</h2>
         <p>Inspiring and equipping young people with digital skills, creativity, and confidence for the future.</p>
       </section>
 
       {/* About */}
-      <section id="about" className="p-10">
-        <h2 className="text-2xl font-bold mb-4">About Us</h2>
+      <section id="about">
+        <h2>About Us</h2>
         <p>Digital Star Space is a youth-led initiative based in Mwanza, Tanzania. Our mission is to connect young people with opportunities and tools to thrive in the digital era.</p>
       </section>
 
       {/* Projects */}
-      <section id="projects" className="p-10 bg-gray-100">
-        <h2 className="text-2xl font-bold mb-4">Our Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {projects.map((p, i) => (
-            <div key={i} className="p-4 border rounded shadow">
-              <h3 className="font-bold">{p.title}</h3>
-              <p>{p.description}</p>
-            </div>
-          ))}
-        </div>
+      <section id="projects">
+        <h2>Our Projects</h2>
+        {projects.map((p, i) => (
+          <div key={i}>
+            <h3>{p.title}</h3>
+            <p>{p.description}</p>
+          </div>
+        ))}
       </section>
 
       {/* Announcements */}
-      <section className="p-10">
-        <h2 className="text-2xl font-bold mb-4">Announcements</h2>
-        <ul className="list-disc pl-5 space-y-2">
-          {announcements.map((a, i) => (
-            <li key={i}>{a.message}</li>
-          ))}
-        </ul>
+      <section id="announcements">
+        <h2>Announcements</h2>
+        {announcements.map((a, i) => (
+          <p key={i}>{a.message}</p>
+        ))}
       </section>
 
       {/* Hosts */}
-      <section className="p-10 bg-gray-100">
-        <h2 className="text-2xl font-bold mb-4">Our Hosts</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {hosts.map((host, i) => (
-            <div key={i} className="p-4 border rounded shadow">
-              <h3 className="font-bold">{host.name}</h3>
-              <p>{host.role} based in {host.location}</p>
-            </div>
-          ))}
-        </div>
+      <section id="hosts">
+        <h2>Our Hosts</h2>
+        {hosts.map((host, idx) => (
+          <div key={idx}>
+            <h3>{host.name}</h3>
+            <p>{host.role} based in {host.location}</p>
+          </div>
+        ))}
       </section>
 
       {/* Media */}
-      <section className="p-10">
-        <h2 className="text-2xl font-bold mb-4">Media</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {media.map((m, i) => (
-            <div key={i}>
-              <h3 className="font-bold mb-2">{m.title}</h3>
-              <div className="aspect-w-16 aspect-h-9">
-                <iframe
-                  src={m.url}
-                  title={m.title}
-                  frameBorder="0"
-                  allowFullScreen
-                  className="w-full h-64 md:h-80"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+      <section id="media">
+        <h2>Media</h2>
+        {media.map((m, idx) => (
+          <div key={idx}>
+            <a href={m.link} target="_blank" rel="noopener noreferrer">{m.title}</a>
+          </div>
+        ))}
       </section>
 
       {/* Contact */}
-      <section id="contact" className="p-10 bg-gray-100">
-        <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
-          <div>
-            <label>Full Name</label>
-            <input type="text" required className="w-full border p-2 rounded"/>
-          </div>
-          <div>
-            <label>Email Address</label>
-            <input type="email" required className="w-full border p-2 rounded"/>
-          </div>
-          <div>
-            <label>Your Message</label>
-            <textarea required className="w-full border p-2 rounded"/>
-          </div>
-          <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">Send Message</button>
-          {formSubmitted && <p className="text-green-600 font-bold">✅ Thank you! Your message has been received. We’ll respond soon.</p>}
-        </form>
+      <section id="contact">
+        <h2>Get in Touch</h2>
+        <form
+          action="https://formspree.io/f/xyznpekn"
+          method="POST"
+        >
+          <label htmlFor="name">Full Name</label>
+          <input type="text" name="name" id="name" required />
 
-        <div className="mt-6">
-          <p>📞 Phone: +255 752 651 956</p>
-          <p>📧 Email: magurusi72@gmail.com</p>
-          <p>💖 <a href="https://www.paypal.com/donate" target="_blank" rel="noreferrer">Donate / Support</a></p>
-        </div>
+          <label htmlFor="email">Email Address</label>
+          <input type="email" name="email" id="email" required />
+
+          <label htmlFor="message">Your Message</label>
+          <textarea name="message" id="message" required></textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+        <p>✅ Thank you! Your message has been received. We’ll respond soon.</p>
+        <p>📞 Phone: +255 752 651 956</p>
+        <p>📧 Email: magurusi72@gmail.com</p>
+        <p>💖 <a href="#">Donate / Support</a></p>
       </section>
 
       {/* Footer */}
-      <footer className="p-6 text-center bg-blue-600 text-white">
+      <footer>
         <p>© 2025 Digital Star Space</p>
         <p>Empowering young minds, shaping a digital future</p>
-        <div className="flex justify-center space-x-4 mt-2">
-          <a href="https://www.youtube.com/@DigitalStarSpace" target="_blank" rel="noreferrer">YouTube</a>
-          <a href="https://www.tiktok.com/@digitalstarspace" target="_blank" rel="noreferrer">TikTok</a>
-          <a href="#" target="_blank" rel="noreferrer">Facebook</a>
-          <a href="#" target="_blank" rel="noreferrer">Instagram</a>
+        <div>
+          <a href="https://www.youtube.com/@DigitalStarSpace" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="https://www.tiktok.com/@digitalstarspace" target="_blank" rel="noopener noreferrer">TikTok</a>
+          <a href="https://www.facebook.com/DigitalStarSpace" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://www.instagram.com/DigitalStarSpace" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
       </footer>
     </div>
