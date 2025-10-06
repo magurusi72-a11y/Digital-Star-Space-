@@ -1,4 +1,0 @@
-interface MyJson {
-    name: string
-    age: number
-}
