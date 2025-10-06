@@ -50,6 +50,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -62,6 +63,11 @@
         .logo i {
             margin-right: 10px;
             color: var(--accent);
+        }
+
+        nav {
+            max-height: 999px;
+            overflow: hidden;
         }
 
         nav ul {
@@ -82,7 +88,8 @@
             position: relative;
         }
 
-        nav ul li a:hover {
+        nav ul li a:hover,
+        nav ul li a.active {
             color: var(--accent);
         }
 
@@ -97,7 +104,8 @@
             transition: width 0.3s;
         }
 
-        nav ul li a:hover::after {
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
             width: 100%;
         }
 
@@ -225,6 +233,7 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s, box-shadow 0.3s;
+            min-height: 350px;
         }
 
         .project-card:hover {
@@ -280,14 +289,18 @@
             background-color: var(--light);
         }
 
+        .hosts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
         .host-card {
             background: white;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             text-align: center;
-            max-width: 300px;
-            margin: 0 auto;
         }
 
         .host-image {
@@ -320,30 +333,6 @@
             flex-direction: column;
             align-items: center;
             gap: 2rem;
-        }
-
-        .video-placeholder {
-            width: 100%;
-            max-width: 700px;
-            height: 400px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: transform 0.3s;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .video-placeholder:hover {
-            transform: scale(1.02);
-        }
-
-        .video-placeholder i {
-            margin-right: 10px;
         }
 
         /* Contact Section */
@@ -500,13 +489,12 @@
             }
 
             nav {
-                width: 100%;
-                margin-top: 1rem;
-                display: none;
+                max-height: 0;
+                transition: max-height 0.3s ease;
             }
 
             nav.active {
-                display: block;
+                max-height: 500px;
             }
 
             nav ul {
@@ -533,6 +521,10 @@
                 flex-direction: column;
             }
 
+            .about-text {
+                text-align: center;
+            }
+
             .section-title h2 {
                 font-size: 2rem;
             }
@@ -552,7 +544,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#home">Home</a></li>
+                    <li><a href="#home" class="active">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#announcements">Announcements</a></li>
@@ -635,180 +627,4 @@
         <div class="container">
             <div class="section-title">
                 <h2>Announcements</h2>
-                <p>Stay updated with our latest news and opportunities</p>
-            </div>
-            <div class="announcements-container">
-                <div class="announcement">
-                    <i class="fas fa-bullhorn"></i>
-                    <div>
-                        <h3>New Coding Bootcamp Starting Next Month!</h3>
-                        <p>We're excited to announce our new coding bootcamp for beginners. Registration is now open for youth aged 15-25. Limited spots available!</p>
-                    </div>
-                </div>
-                <div class="announcement">
-                    <i class="fas fa-star"></i>
-                    <div>
-                        <h3>Women in Tech Mentorship Program</h3>
-                        <p>Our Women in Tech mentorship program is now open for registration. Connect with experienced professionals in the tech industry.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Hosts Section -->
-    <section class="hosts">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Hosts</h2>
-                <p>Meet the dedicated team behind Digital Star Space</p>
-            </div>
-            <div class="host-card">
-                <div class="host-image">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="host-info">
-                    <h3>Marko Magurusi</h3>
-                    <p>Founder & Educator based in Mwanza</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Media Section -->
-    <section>
-        <div class="container">
-            <div class="section-title">
-                <h2>Media</h2>
-                <p>Watch our introduction video to learn more about our mission</p>
-            </div>
-            <div class="media-container">
-                <div class="video-placeholder">
-                    <i class="fas fa-play-circle"></i>
-                    Intro Video - Watch Here
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Get in Touch</h2>
-                <p>Reach out to us for more information or to get involved</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-form">
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" class="form-control" placeholder="Your full name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" class="form-control" placeholder="Your email address">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" class="form-control" placeholder="Your message"></textarea>
-                        </div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
-                </div>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h3>Phone</h3>
-                            <p>+255 752 651 956</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h3>Email</h3>
-                            <p>magurusi72@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-heart"></i>
-                        <div>
-                            <h3>Support Our Mission</h3>
-                            <p>Help us empower more young minds by donating to our cause.</p>
-                            <a href="#" class="btn" style="margin-top: 10px;">Donate / Support</a>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Digital Star Space</h3>
-                    <p>Empowering young minds, shaping a digital future in Mwanza, Tanzania.</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#projects">Our Projects</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Programs</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Coding for Kids</a></li>
-                        <li><a href="#">Digital Skills Bootcamp</a></li>
-                        <li><a href="#">Women in Tech</a></li>
-                        <li><a href="#">Upcoming Events</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 Digital Star Space. All rights reserved.</p>
-                <p>Empowering young minds, shaping a digital future</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav').classList.toggle('active');
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu after clicking a link
-                if (window.innerWidth <= 768) {
-                    document.querySelector('nav').classList.remove('active');
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                <p>Stay updated with our latest news and opportunities
