@@ -1,0 +1,33 @@
+app.js
+import '../styles/globals.css'
+
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+
+export default MyApp
+index.js
+import Head from 'next/head'
+import Image from 'next/image'
+
+export default function Home() {
+  return (
+    <>
+      <Head>
+        <title>Digital Star Space</title>
+        <meta name="description" content="Empowering Young Minds" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
+        <Image src="/images/logo.png" alt="Logo" width={150} height={150} />
+        <h1 className="text-4xl font-bold mt-6 text-center">
+          Welcome to Digital Star Space
+        </h1>
+        <p className="mt-4 text-center text-gray-700 max-w-md">
+          Inspiring and equipping young people with digital skills, creativity, and confidence for the future.
+        </p>
+      </main>
+    </>
+  )
+}
