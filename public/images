@@ -1,1 +1,7 @@
-digital-star-space/public/images/logo.png
+digital-star-space/
+└─ public/
+   ├─ favicon.ico
+   └─ images/
+      ├─ logo.png       ← Homepage logo
+      ├─ gallery1.jpg   ← Gallery image 1
+      ├─ gallery2.jpg   ← Gallery image 2
