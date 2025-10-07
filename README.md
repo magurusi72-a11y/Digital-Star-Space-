@@ -14,7 +14,6 @@
     "tailwindcss": "^3.3.4",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.27",
-    "react-image-lightbox": "^5.1.4",
     "react-modal": "^3.16.1",
     "nodemailer": "^6.9.5"
   }
