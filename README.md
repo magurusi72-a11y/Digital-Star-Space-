@@ -9,12 +9,9 @@
   },
   "dependencies": {
     "next": "14.1.6",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
     "tailwindcss": "^3.3.4",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.27",
-    "react-modal": "^3.16.1",
     "nodemailer": "^6.9.5"
   }
 }
