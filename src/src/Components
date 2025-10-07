@@ -1,0 +1,46 @@
+navbar.js
+import Link from 'next/link'
+
+export default function Navbar() {
+  return (
+    <nav className="w-full bg-white shadow-md py-4 px-6 flex justify-between items-center">
+      <h1 className="font-bold text-xl text-blue-600">Digital Star Space</h1>
+      <ul className="flex space-x-6">
+        <li><Link href="/">Home</Link></li>
+        <li><Link href="/about">About</Link></li>
+        <li><Link href="/projects">Projects</Link></li>
+        <li><Link href="/contact">Contact</Link></li>
+      </ul>
+    </nav>
+  )
+}
+
+footer.js
+export default function Footer() {
+  return (
+    <footer className="w-full bg-gray-800 text-white py-6 mt-12">
+      <p className="text-center">&copy; 2025 Digital Star Space. All rights reserved.</p>
+    </footer>
+  )
+}
+
+gallery.js
+import Image from 'next/image'
+
+export default function Gallery() {
+  const images = [
+    '/images/gallery1.jpg',
+    '/images/gallery2.jpg',
+    '/images/gallery3.jpg'
+  ]
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+      {images.map((src, index) => (
+        <div key={index} className="overflow-hidden rounded-lg shadow-md">
+          <Image src={src} alt={`Gallery ${index + 1}`} width={400} height={300} className="object-cover" />
+        </div>
+      ))}
+    </div>
+  )
+}
