@@ -1,40 +1,66 @@
-# 🌟 Digital Star Space
+# Digital Star Space ðŸŒ
 
-**Empowering Young Minds — Inspiring and equipping young people with digital skills, creativity, and confidence for the future.**
+Empowering Young Minds --- Inspiring and equipping young people with
+digital skills, creativity, and confidence for the future.
 
----
+------------------------------------------------------------------------
 
-## 🏫 About Us
-Digital Star Space is a youth-led initiative based in Mwanza, Tanzania.  
-Our mission is to connect young people with opportunities and tools to thrive in the digital era.
+## ðŸ§­ About Us
 
----
+**Digital Star Space** is a youth-led initiative based in **Mwanza,
+Tanzania**.\
+Our mission is to connect young people with opportunities and tools to
+thrive in the digital era.
 
-## 💻 Projects
-- **Coding for Kids:** Basic coding & problem-solving for primary learners.  
-- **Digital Skills Bootcamp:** Practical computer literacy and creativity tools.  
-- **Women in Tech:** Empowering young women in digital space.
+------------------------------------------------------------------------
 
----
+## ðŸ’¡ Our Projects
 
-## 📢 Announcements
-- New coding bootcamp starting next month!  
-- Women in Tech mentorship program open for registration.
+### ðŸ‘©â€ðŸ’» Coding for Kids
 
----
+Basic coding & problem-solving for primary learners.
 
-## 👥 Our Hosts
-**Marko Magurusi** – Founder & educator based in Mwanza
+### ðŸ§  Digital Skills Bootcamp
 
----
+Practical computer literacy and creativity tools.
 
-## 📞 Get in Touch
-- Phone: +255 752 651 956  
-- Email: magurusi72@gmail.com  
-- YouTube: [@magurusi](https://www.youtube.com/@magurusi)  
-- TikTok: [@magurusi](https://www.tiktok.com/@magurusi)
+### ðŸ’ª Women in Tech
 
----
+Empowering young women in the digital space.
 
-© 2025 **Digital Star Space**  
-Empowering young minds, shaping a digital future.
+------------------------------------------------------------------------
+
+## ðŸ“¢ Announcements
+
+-   ðŸŒŸ **New coding bootcamp** starting next month!\
+-   ðŸ’– **Women in Tech mentorship program** open for registration.
+
+------------------------------------------------------------------------
+
+## ðŸ§‘â€ðŸ« Our Hosts
+
+**Marko Magurusi** --- Founder & educator based in Mwanza.
+
+------------------------------------------------------------------------
+
+## ðŸŽ¥ Media
+
+**Intro Video** --- [Watch Here](#)
+
+------------------------------------------------------------------------
+
+## ðŸ“¬ Get in Touch
+
+ðŸ“ž **Phone:** +255 752 651 956\
+ðŸ“§ **Email:** magurusi72@gmail.com
+
+ðŸ’– **Donate / Support:** [Support Here](#)
+
+------------------------------------------------------------------------
+
+Â© 2025 **Digital Star Space**\
+*Empowering young minds, shaping a digital future*
+
+[YouTube](https://www.youtube.com/@magurusi) \|
+[TikTok](https://www.tiktok.com/@magurusi) \| [Facebook](#) \|
+[Instagram](#)
