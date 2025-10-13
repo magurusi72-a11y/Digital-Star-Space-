@@ -1,3 +1,3 @@
-git add .
-git commit -m "Added app directory with layout and page"
+git add app/layout.js app/page.js
+git commit -m "fix: add app directory with layout and homepage"
 git push
