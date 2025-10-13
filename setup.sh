@@ -22,7 +22,7 @@ cat <<EOF > package.json
     "start": "next start"
   },
   "dependencies": {
-    "next": "14.1.6",
+    "next": "14.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "^3.3.4",
