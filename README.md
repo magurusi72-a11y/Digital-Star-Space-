@@ -1,9 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import Home from "./Home";
-
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Home />
-  </React.StrictMode>
-);
+export default function Home() {
+  return (
+    <div style={{ padding: "40px", fontFamily: "Arial" }}>
+      <h1>LearnFree Digital</h1>
+      <p>React + Vite is working. Error fixed ✅</p>
+    </div>
+  );
+}
