@@ -1,5 +1,5 @@
 {
-  "name": "digital-star-space",
+  "name": "LearnFree Digital",
   "version": "1.0.0",
   "private": true,
   "scripts": {
